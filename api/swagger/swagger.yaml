@@ -1,0 +1,403 @@
+swagger: '2.0'
+info:
+  description: An API that allows users to interact with shift data
+  version: 1.0.0
+  title: Schedule API
+  contact:
+    email: natefikru@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+schemes:
+  - https
+host: localhost:10010
+basePath: /v1
+paths:
+  '/shift':
+    x-swagger-router-controller: shiftController
+    get:
+      summary: Returns a list of all shifts in the database
+      operationId: getAllShifts
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Shift'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+  '/shift/{shift_id}':
+    x-swagger-router-controller: shiftController
+    get:
+      summary: Return detailed shift data by shiftID
+      operationId: getShiftByID
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: shift_id
+          description: ID of the user that made the request
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#/definitions/Shift'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+  '/{user_id}/shift':
+    x-swagger-router-controller: shiftController
+    post:
+      summary: Creates entry for a shift within the database
+      operationId: createShift
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user that made the request
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: User object that contains updating data
+          required: true
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+              manager_id:
+                type: string
+              employee_id:
+                type: string
+              break:
+                type: number
+              start_time:
+                type: string
+              end_time:
+                type: string
+              created_at:
+                type: string
+              updated_at:
+                type: string
+            required:
+              - start_time
+              - end_time
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#/definitions/Success'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      summary: Returns a list of user shift and open shift data back to the user
+      operationId: getUserShifts
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user that made the request
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Shift'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+  '/employee':
+    x-swagger-router-controller: employeeController
+    get:
+      summary: Returns list of all users within the database
+      operationId: getAllEmployees
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+  '/employee/{emp_id}':
+    x-swagger-router-controller: employeeController
+    get:
+      summary: Return user data by ID
+      operationId: getEmployeeByID
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: emp_id
+          description: ID of the employee being returned
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+  '/{user_id}/employee':
+    x-swagger-router-controller: employeeController
+    post:
+      summary: Creates user within database
+      operationId: createEmployee
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user that made the request
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: User object that contains data being updated
+          required: true
+          schema:
+            type: object
+            description: User object for employees and managers
+            properties:
+              _id:
+                type: string
+              name:
+                type: string
+              role:
+                type: string
+              email:
+                type: string
+              phone:
+                type: string
+            required:
+              - role
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#/definitions/Success'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+  '/{user_id}/employee/{emp_id}':
+    x-swagger-router-controller: employeeController
+    delete:
+      summary: Deletes user data by ID
+      operationId: deleteEmployeeByID
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user that made the request
+          required: true
+          type: string
+        - in: path
+          name: emp_id
+          description: ID of the user being queried
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#/definitions/Success'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Updates user data by ID with provided data
+      operationId: updateEmployeeByID
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user that made the request
+          required: true
+          type: string
+        - in: path
+          name: emp_id
+          description: ID of the user being queried
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: User object that contains updating data
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              role:
+                type: string
+              email:
+                type: string
+              phone:
+                type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#/definitions/Success'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+  '/{user_id}/schedule':
+    x-swagger-router-controller: shiftController
+    get:
+      summary: Returns a list of shifts that are within start and end time restrictions
+      operationId: getShiftsInPeriod
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user that made the request
+          required: true
+          type: string
+        - in: query
+          name: start_time
+          type: string
+          required: true
+          description: RFC2822 timestamp for beginning of the shift time window
+        - in: query
+          name: end_time
+          type: string
+          required: true
+          description: RFC2822 timestamp for ending of the shift time window
+      responses:
+        '200':
+          description: successful operationId
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Shift'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+  '/{user_id}/hours':
+    x-swagger-router-controller: shiftController
+    get:
+      summary: Returns the amount of hours worked within the last 7 days
+      operationId: getHours
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user that made the request
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operationId
+          schema:
+            type: object
+            properties:
+              hoursWorkedInLast7Days:
+                type: string
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  User:
+    type: object
+    description: User object for employees and managers
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+  Shift:
+    type: object
+    properties:
+      _id:
+        type: string
+      manager_id:
+        type: string
+      employee_id:
+        type: string
+      break:
+        type: number
+      start_time:
+        type: string
+      end_time:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+  Success:
+    type: object
+    properties:
+      successMessage:
+        type: string
+  Error:
+    type: object
+    properties:
+      errorMessage:
+        type: string
