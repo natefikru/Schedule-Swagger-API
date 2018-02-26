@@ -1,4 +1,4 @@
 module.exports = {
-  url: 'mongodb://localhost:27017/',
+  url: 'mongodb://natefikru:n47nw0gn@ds247698.mlab.com:47698/',
   dbName: 'schedule-api-db'
 }

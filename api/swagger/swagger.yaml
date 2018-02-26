@@ -131,6 +131,81 @@ paths:
           description: Unsuccessful Operation
           schema:
             $ref: '#/definitions/Error'
+  '/{user_id}/shift/{shift_id}':
+    x-swagger-router-controller: shiftController
+    delete:
+      summary: Deletes shift data by ID
+      operationId: deleteShiftByID
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user that made the request
+          required: true
+          type: string
+        - in: path
+          name: shift_id
+          description: ID of the shift being deleted
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#/definitions/Success'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Updates shift data by ID with provided body data
+      operationId: updateShiftByID
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user that made the request
+          required: true
+          type: string
+        - in: path
+          name: shift_id
+          description: ID of the shift being deleted
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Shift object that contains updating data
+          required: true
+          schema:
+            type: object
+            properties:
+              manager_id:
+                type: string
+              employee_id:
+                type: string
+              break:
+                type: number
+              start_time:
+                type: string
+                description: dateTime RFC2822
+              end_time:
+                type: string
+                description: dateTime RFC2822
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#/definitions/Success'
+        '400':
+          description: Unsuccessful Operation
+          schema:
+            $ref: '#/definitions/Error'
   '/employee':
     x-swagger-router-controller: employeeController
     get:
@@ -385,12 +460,16 @@ definitions:
         type: number
       start_time:
         type: string
+        description: dateTime RFC2822
       end_time:
         type: string
+        description: dateTime RFC2822
       created_at:
         type: string
+        description: dateTime RFC2822
       updated_at:
         type: string
+        description: dateTime RFC2822
   Success:
     type: object
     properties:

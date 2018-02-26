@@ -9,7 +9,7 @@
 <div class="container">
     <h1>Schedule API</h1>
     <p class="sw-info">
-        Base URL: <span class="sw-info-basePath">/v1</span>,
+        
         Version: <span class="sw-info-version">1.0.0</span>
     </p>
     <p><p>An API that allows users to interact with shift data</p>
@@ -154,6 +154,27 @@
                         </td>
                         <td>
                             <p>Creates entry for a shift within the database</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="2">
+                                <a href="#path---user_id--shift--shift_id-">/{user_id}/shift/{shift_id}</a>
+                            </td>
+                        <td>
+                            <a href="#operation---user_id--shift--shift_id--delete">DELETE</a>
+                        </td>
+                        <td>
+                            <p>Deletes shift data by ID</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="#operation---user_id--shift--shift_id--put">PUT</a>
+                        </td>
+                        <td>
+                            <p>Updates shift data by ID with provided body data</p>
         
                         </td>
                     </tr>
@@ -1602,6 +1623,321 @@
                         </section>
                 </div>
             </div>
+        
+        <span id="path---user_id--shift--shift_id-"></span>
+            <div id="operation---user_id--shift--shift_id--delete" class="swagger--panel-operation-delete panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Deletes shift data by ID</div>
+                    <h3 class="panel-title"><span class="operation-name">DELETE</span> <strong>/{user_id}/shift/{shift_id}</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        
+                    </section>
+            
+                        
+                            <section class="sw-request-body">
+                                
+                                    <p><span class="label label-default">application/json</span> 
+                        </p>
+                            </section>        
+                        <section class="sw-request-params">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="sw-param-name"></th>
+                                    <th class="sw-param-description"></th>
+                                    <th class="sw-param-type"></th>
+                                    <th class="sw-param-data-type"></th>
+                                    <th class="sw-param-annotation"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td>
+                                                user_id
+                                            </td>
+                                            <td><p>ID of the user that made the request</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                shift_id
+                                            </td>
+                                            <td><p>ID of the shift being deleted</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    
+                        <section class="sw-responses">
+                                <p><span class="label label-default">application/json</span> 
+                    </p>
+                    
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Successful Operation</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                                <a class="json-schema-ref" href="#/definitions/Success">Success</a>
+                                                    </div>
+                                                </div></div>
+                                            
+                                            </div>                </dd>
+                                    <dt class="sw-response-400">
+                                        400 Bad Request
+                                    
+                                    </dt>
+                                    <dd class="sw-response-400">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Unsuccessful Operation</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                                <a class="json-schema-ref" href="#/definitions/Error">Error</a>
+                                                    </div>
+                                                </div></div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>
+            <div id="operation---user_id--shift--shift_id--put" class="swagger--panel-operation-put panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Updates shift data by ID with provided body data</div>
+                    <h3 class="panel-title"><span class="operation-name">PUT</span> <strong>/{user_id}/shift/{shift_id}</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        
+                    </section>
+            
+                        
+                            <section class="sw-request-body">
+                                
+                                    <p><span class="label label-default">application/json</span> 
+                        </p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p><p>Shift object that contains updating data</p>
+                        </p>
+                                            </div>
+                                            <div class="col-md-6 sw-request-model">
+                            <div  class="panel panel-definition">
+                                <div class="panel-body">
+                                        
+                                                <section class="json-schema-properties">
+                                                    <dl>
+                                                            <dt data-property-name="manager_id">
+                                                                <span class="json-property-name">manager_id:</span>
+                                                                
+                                                                <span class="json-property-type">string</span>
+                                                                <span class="json-property-range" title="Value limits"></span>
+                                                                
+                                                            </dt>
+                                                            <dd>
+                                                                
+                                                                <div class="json-inner-schema">
+                                                                    
+                                                                </div>
+                                                            </dd>
+                                                            <dt data-property-name="employee_id">
+                                                                <span class="json-property-name">employee_id:</span>
+                                                                
+                                                                <span class="json-property-type">string</span>
+                                                                <span class="json-property-range" title="Value limits"></span>
+                                                                
+                                                            </dt>
+                                                            <dd>
+                                                                
+                                                                <div class="json-inner-schema">
+                                                                    
+                                                                </div>
+                                                            </dd>
+                                                            <dt data-property-name="break">
+                                                                <span class="json-property-name">break:</span>
+                                                                
+                                                                <span class="json-property-type">number</span>
+                                                                <span class="json-property-range" title="Value limits"></span>
+                                                                
+                                                            </dt>
+                                                            <dd>
+                                                                
+                                                                <div class="json-inner-schema">
+                                                                    
+                                                                </div>
+                                                            </dd>
+                                                            <dt data-property-name="start_time">
+                                                                <span class="json-property-name">start_time:</span>
+                                                                
+                                                                <span class="json-property-type">string</span>
+                                                                <span class="json-property-range" title="Value limits"></span>
+                                                                
+                                                            </dt>
+                                                            <dd>
+                                                                <p>dateTime RFC2822</p>
+                                                
+                                                                <div class="json-inner-schema">
+                                                                    
+                                                                </div>
+                                                            </dd>
+                                                            <dt data-property-name="end_time">
+                                                                <span class="json-property-name">end_time:</span>
+                                                                
+                                                                <span class="json-property-type">string</span>
+                                                                <span class="json-property-range" title="Value limits"></span>
+                                                                
+                                                            </dt>
+                                                            <dd>
+                                                                <p>dateTime RFC2822</p>
+                                                
+                                                                <div class="json-inner-schema">
+                                                                    
+                                                                </div>
+                                                            </dd>
+                                                    </dl>
+                                                </section>
+                                </div>
+                            </div></div>
+                                        </div>
+                            </section>        
+                        <section class="sw-request-params">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="sw-param-name"></th>
+                                    <th class="sw-param-description"></th>
+                                    <th class="sw-param-type"></th>
+                                    <th class="sw-param-data-type"></th>
+                                    <th class="sw-param-annotation"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td>
+                                                user_id
+                                            </td>
+                                            <td><p>ID of the user that made the request</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                shift_id
+                                            </td>
+                                            <td><p>ID of the shift being deleted</p>
+                                        </td>
+                                            <td>path</td>
+                                            <td>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    
+                        <section class="sw-responses">
+                                <p><span class="label label-default">application/json</span> 
+                    </p>
+                    
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Successful Operation</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                                <a class="json-schema-ref" href="#/definitions/Success">Success</a>
+                                                    </div>
+                                                </div></div>
+                                            
+                                            </div>                </dd>
+                                    <dt class="sw-response-400">
+                                        400 Bad Request
+                                    
+                                    </dt>
+                                    <dd class="sw-response-400">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Unsuccessful Operation</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                                <a class="json-schema-ref" href="#/definitions/Error">Error</a>
+                                                    </div>
+                                                </div></div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>
     
      
     
@@ -1714,7 +2050,8 @@
                                                     
                                                 </dt>
                                                 <dd>
-                                                    
+                                                    <p>dateTime RFC2822</p>
+                                    
                                                     <div class="json-inner-schema">
                                                         
                                                     </div>
@@ -1727,7 +2064,8 @@
                                                     
                                                 </dt>
                                                 <dd>
-                                                    
+                                                    <p>dateTime RFC2822</p>
+                                    
                                                     <div class="json-inner-schema">
                                                         
                                                     </div>
@@ -1740,7 +2078,8 @@
                                                     
                                                 </dt>
                                                 <dd>
-                                                    
+                                                    <p>dateTime RFC2822</p>
+                                    
                                                     <div class="json-inner-schema">
                                                         
                                                     </div>
@@ -1753,7 +2092,8 @@
                                                     
                                                 </dt>
                                                 <dd>
-                                                    
+                                                    <p>dateTime RFC2822</p>
+                                    
                                                     <div class="json-inner-schema">
                                                         
                                                     </div>
