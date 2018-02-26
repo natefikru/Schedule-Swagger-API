@@ -45,6 +45,7 @@ function insertObject (object, collection) {
 function getByID (id, collection) {
   return new Promise((resolve, reject) => {
     connectToDB().then(dbo => {
+      console.log(id)
       dbo.collection(collection).findOne({'_id': id}, (err, res) => {
         if (err) reject(err)
         resolve(res)

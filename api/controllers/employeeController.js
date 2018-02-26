@@ -28,7 +28,8 @@ function getAllEmployees (req, res, next) {
 function createEmployee (req, res, next) {
   var userID = req.swagger.params.user_id.value
   var userObject = req.swagger.params.body.value
-
+  console.log(userID)
+  console.log(userObject)
   helper.isManager(userID).then(() => {
     return helper.requireRole(userObject)
   }).then(() => {
