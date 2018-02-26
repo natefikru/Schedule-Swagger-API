@@ -12,7 +12,7 @@ function getEmployeeByID (req, res, next) {
     .then(result => {
       res.status(200).send(result)
     }).catch(err => {
-      res.status(400).send(err)
+      res.status(400).send(err.stack)
     })
 }
 
@@ -21,7 +21,7 @@ function getAllEmployees (req, res, next) {
     .then(result => {
       res.status(200).send(result)
     }).catch(err => {
-      res.status(400).send(err)
+      res.status(400).send(err.stack)
     })
 }
 
@@ -39,7 +39,7 @@ function createEmployee (req, res, next) {
   }).then(result => {
     res.status(200).send({'successMessage': 'New user has been created'})
   }).catch(err => {
-    res.status(400).send(err)
+    res.status(400).send(err.stack)
   })
 }
 
@@ -52,7 +52,7 @@ function deleteEmployeeByID (req, res, next) {
   }).then(result => {
     res.status(200).send({'successMessage': `User ${empID} has been deleted`})
   }).catch(err => {
-    res.status(400).send(err)
+    res.status(400).send(err.stack)
   })
 }
 
@@ -69,7 +69,7 @@ function updateEmployeeByID (req, res, next) {
   }).then(result => {
     res.status(200).send({'successMessage': `User ${empID} has been updated`})
   }).catch(err => {
-    res.status(400).send(err)
+    res.status(400).send(err.stack)
   })
 }
 

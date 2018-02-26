@@ -20,7 +20,7 @@ function createShift (req, res, next) {
   }).then(result => {
     res.status(200).send({'successMessage': 'New shift has been created'})
   }).catch(err => {
-    res.status(400).send(err)
+    res.status(400).send(err.stack)
   })
 }
 
@@ -29,7 +29,7 @@ function getAllShifts (req, res, next) {
     .then(result => {
       res.status(200).send(result)
     }).catch(err => {
-      res.status(400).send(err)
+      res.status(400).send(err.stack)
     })
 }
 
@@ -40,7 +40,7 @@ function getShiftByID (req, res, next) {
   }).then(shift => {
     res.status(200).send(shift)
   }).catch(err => {
-    res.status(400).send(err)
+    res.status(400).send(err.stack)
   })
 }
 
@@ -57,7 +57,7 @@ function updateShiftByID (req, res, next) {
   }).then(result => {
     res.status(200).send({'successMessage': `'Shift ${shiftID} has been updated`})
   }).catch(err => {
-    res.status(400).send(err)
+    res.status(400).send(err.stack)
   })
 }
 
@@ -70,7 +70,7 @@ function deleteShiftByID (req, res, next) {
   }).then(result => {
     res.status(200).send({'successMessage': `Shift ${shiftID} has been deleted`})
   }).catch(err => {
-    res.status(400).send(err)
+    res.status(400).send(err.stack)
   })
 }
 
@@ -89,7 +89,7 @@ function getShiftsInPeriod (req, res, next) {
   }).then(shifts => {
     res.status(200).send(shifts)
   }).catch(err => {
-    res.status(400).send(err)
+    res.status(400).send(err.stack)
   })
 }
 
@@ -100,7 +100,7 @@ function getUserShifts (req, res, next) {
   }).then(userShifts => {
     res.status(200).send(userShifts)
   }).catch(err => {
-    res.status(400).send(err)
+    res.status(400).send(err.stack)
   })
 }
 
@@ -114,7 +114,7 @@ function getHours (req, res, next) {
   }).then(hours => {
     res.status(200).send(hours)
   }).catch(err => {
-    res.status(400).send(err)
+    res.status(400).send(err.stack)
   })
 }
 
