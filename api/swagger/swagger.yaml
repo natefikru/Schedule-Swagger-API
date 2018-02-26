@@ -9,9 +9,9 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 schemes:
+  - http
   - https
-host: localhost:10010
-basePath: /v1
+host: localhost
 paths:
   '/shift':
     x-swagger-router-controller: shiftController
@@ -134,7 +134,7 @@ paths:
   '/employee':
     x-swagger-router-controller: employeeController
     get:
-      summary: Returns list of all users within the database
+      summary: Returns list of all workers within the database
       operationId: getAllEmployees
       produces:
         - application/json
@@ -222,7 +222,7 @@ paths:
   '/{user_id}/employee/{emp_id}':
     x-swagger-router-controller: employeeController
     delete:
-      summary: Deletes user data by ID
+      summary: Deletes worker data by ID
       operationId: deleteEmployeeByID
       produces:
         - application/json
@@ -249,7 +249,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     put:
-      summary: Updates user data by ID with provided data
+      summary: Updates worker data by ID with provided body data
       operationId: updateEmployeeByID
       produces:
         - application/json
