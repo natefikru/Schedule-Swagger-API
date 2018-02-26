@@ -15,7 +15,7 @@ function isManager (id) {
         reject(new Error('Current user role is corrupted'))
       }
     }).catch(err => {
-      console.log(err)
+      reject(err)
     })
   })
 }
@@ -181,8 +181,8 @@ function addManagerContact (shift) {
     repo.getByID(shift.manager_id, 'users').then(managerObject => {
       if (typeof managerObject.email !== 'undefined') {
         shift['manager_email'] = managerObject.email
-      }
-      if (typeof managerObject.phone !== 'undefined') {
+        resolve(shift)
+      } else if (typeof managerObject.phone !== 'undefined') {
         shift['manager_phone'] = managerObject.phone
         resolve(shift)
       } else {
@@ -252,5 +252,6 @@ module.exports = {
   getShiftsInTimeWindow,
   addShiftInfo,
   getMyShifts,
-  calculateHours
+  calculateHours,
+  addManagerContact
 }
