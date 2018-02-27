@@ -28,6 +28,8 @@ curl -H "Content-Type: application/json" -X POST -d '{"name":"userName","role":"
 
 This call is only successful when the the user_id correlates with a manager
 
+an example of the correct RFC2822 time format would be ```Wed, 21 Feb 2018 08:00:28 +0000```
+
 ### Connecting to MongoDB
 
 To connect to the database remotely, you will need to install mongoDB on your device. Once installed, Use your credentials with the following commands.
