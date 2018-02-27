@@ -6,6 +6,7 @@ var MongoClient = require('mongodb').MongoClient
 const URL = config.url
 const DBNAME = config.dbName
 
+// connectToDB makes a connection the the MongoDB instance specified in the config/config.js file
 function connectToDB () {
   return new Promise((resolve, reject) => {
     MongoClient.connect(URL + DBNAME, (err, db) => {
@@ -15,6 +16,7 @@ function connectToDB () {
   })
 }
 
+// getCollection connects to mongo and returns all data within a collection of the db
 function getCollection (collection) {
   return new Promise((resolve, reject) => {
     connectToDB().then(dbo => {
@@ -28,6 +30,7 @@ function getCollection (collection) {
   })
 }
 
+// insertObject connects to mongo and inserts an object within the db collection specified in the parameters
 function insertObject (object, collection) {
   return new Promise((resolve, reject) => {
     connectToDB().then(dbo => {
@@ -42,6 +45,7 @@ function insertObject (object, collection) {
   })
 }
 
+// getByID connects to mongo and returns an object within the db collection specified in the parameters
 function getByID (id, collection) {
   return new Promise((resolve, reject) => {
     connectToDB().then(dbo => {
@@ -56,6 +60,7 @@ function getByID (id, collection) {
   })
 }
 
+// deleteByID connects to mongo and deletes an object by ID within the db collection specified in the parameters
 function deleteByID (id, collection) {
   return new Promise((resolve, reject) => {
     connectToDB().then(dbo => {
@@ -69,6 +74,7 @@ function deleteByID (id, collection) {
   })
 }
 
+// updateByID connects to mongo and updates an object by ID within the db collection specified in the parameters
 function updateByID (id, updateObject, collection) {
   return new Promise((resolve, reject) => {
     connectToDB().then(dbo => {

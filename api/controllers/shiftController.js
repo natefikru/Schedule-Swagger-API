@@ -1,11 +1,16 @@
 'use strict'
 
+// This entire file holds all controller functions that correlate
+// directly with shift and schedule related endpoints
+
 var repo = require('./../repos/repo.js')
 var helper = require('./../helpers/helper.js')
 var moment = require('moment')
 
 var RFC2822 = 'ddd, DD MMM YYYY HH:mm:ss ZZ'
 
+// createShift runs an insert within the database to create a new shift object entry
+// only managers have access, a default sjoft manager is assigned, and time data is validated
 function createShift (req, res, next) {
   var userID = req.swagger.params.user_id.value
   var shiftObject = req.swagger.params.body.value
@@ -24,6 +29,7 @@ function createShift (req, res, next) {
   })
 }
 
+// getAllShifts returns full list of all user data objects from database
 function getAllShifts (req, res, next) {
   repo.getCollection('shifts')
     .then(result => {
@@ -33,6 +39,7 @@ function getAllShifts (req, res, next) {
     })
 }
 
+// getShiftByID returns specific shift data object from database by ID
 function getShiftByID (req, res, next) {
   var shiftID = req.swagger.params.shift_id.value
   repo.getByID(shiftID, 'shifts').then(shift => {
@@ -44,6 +51,8 @@ function getShiftByID (req, res, next) {
   })
 }
 
+// updateShiftByID updates a shift object in the db using specified ID and request body data
+// only managers have access, and time datas are validated
 function updateShiftByID (req, res, next) {
   var shiftID = req.swagger.params.shift_id.value
   var userID = req.swagger.params.user_id.value
@@ -61,6 +70,8 @@ function updateShiftByID (req, res, next) {
   })
 }
 
+// deleteShiftByID removes a shift object from the db by specifiying ID
+// only managers have access
 function deleteShiftByID (req, res, next) {
   var shiftID = req.swagger.params.shift_id.value
   var userID = req.swagger.params.user_id.value
@@ -74,6 +85,9 @@ function deleteShiftByID (req, res, next) {
   })
 }
 
+// getShiftsInPeriod return a list of shifts that start within a time window requested
+// time window is specified in the query parameters
+// only managers have access, times in query are validated
 function getShiftsInPeriod (req, res, next) {
   var userID = req.swagger.params.user_id.value
   var startTime = req.swagger.params.start_time.value
@@ -93,6 +107,7 @@ function getShiftsInPeriod (req, res, next) {
   })
 }
 
+// getUserShifts returns a list of all shifts assigned to the user as well as any open shifts
 function getUserShifts (req, res, next) {
   var userID = req.swagger.params.user_id.value
   repo.getCollection('shifts').then(allShifts => {
@@ -104,6 +119,7 @@ function getUserShifts (req, res, next) {
   })
 }
 
+// getHours returns the amount of hours worked by the user in the last 7 days
 function getHours (req, res, next) {
   var userID = req.swagger.params.user_id.value
 

@@ -1,9 +1,12 @@
 'use strict'
 
+// all functions within this file are called by the controller functions.
+// all helper methods return Promises so the controller functions can chain these methods together
 var repo = require('./../repos/repo.js')
 var moment = require('moment')
 var async = require('async')
 
+// isManager returns succesfully if id sent correlates to a manager user within the datatbase
 function isManager (id) {
   return new Promise((resolve, reject) => {
     repo.getByID(id, 'users').then(result => {
@@ -20,6 +23,7 @@ function isManager (id) {
   })
 }
 
+// checkContactInfo returns succesfully if phone data and/or email data are present within the userObject
 function checkContactInfo (userObject) {
   return new Promise((resolve, reject) => {
     if ((typeof userObject.phone === 'undefined') && (typeof userObject.email === 'undefined')) {
@@ -30,6 +34,7 @@ function checkContactInfo (userObject) {
   })
 }
 
+// requireRole returns succesfully if the user role is specified as either manager or employee
 function requireRole (userObject) {
   return new Promise((resolve, reject) => {
     if ((userObject.role === 'employee') || (userObject.role === 'manager')) {
@@ -40,6 +45,7 @@ function requireRole (userObject) {
   })
 }
 
+// checkChangedRole returns succesfully if a role isn't changed or it was swapped from employee to manager or vice versa
 function checkChangedRole (userObject) {
   return new Promise((resolve, reject) => {
     if (typeof userObject.role === 'undefined') {
@@ -52,6 +58,8 @@ function checkChangedRole (userObject) {
   })
 }
 
+// checkShiftTimeFormat validates start_time and end_time values in shifts
+// makes sure they are in RFC2822 format
 function checkShiftTimeFormat (timeObject) {
   return new Promise((resolve, reject) => {
     var RFC2822 = 'ddd, DD MMM YYYY HH:mm:ss ZZ'
@@ -79,6 +87,8 @@ function checkShiftTimeFormat (timeObject) {
   })
 }
 
+// assignShiftManager assigns the default manager id to shift object if it isn't specified
+// it returns the shiftObject
 function assignShiftManager (managerID, shiftObject) {
   return new Promise((resolve, reject) => {
     if (typeof shiftObject.manager_id === 'undefined') {
@@ -90,6 +100,9 @@ function assignShiftManager (managerID, shiftObject) {
   })
 }
 
+// getUserShifts loops though all shifts and finds matches of shifts that
+// correlate with the user and are open
+// it returns a list of shifts
 function getUserShifts (shifts, userID) {
   return new Promise((resolve, reject) => {
     var shiftList = []
@@ -110,6 +123,9 @@ function getUserShifts (shifts, userID) {
   })
 }
 
+// getShiftsInTimeWindow loops through all shifts then checks each shifts
+// start_time value to see if it is in between the timeWindows start_time and end_time.
+// If it is, it adds the shift to a list that is returned when finished
 function getShiftsInTimeWindow (shifts, timeWindow) {
   return new Promise((resolve, reject) => {
     var windowStart = moment(timeWindow.start_time).unix()
@@ -134,6 +150,9 @@ function getShiftsInTimeWindow (shifts, timeWindow) {
   })
 }
 
+// addCoworkers loops through a list of all shifts and generates a list of userIDs
+// that have shifts that take place during the time of the userShift timeObject
+// It returns the original userShift with a list of coworker ids appended to it.
 function addCoworkers (userShift) {
   return new Promise((resolve, reject) => {
     userShift.employeesWorking = []
@@ -163,6 +182,7 @@ function addCoworkers (userShift) {
   })
 }
 
+// addShift info chains the addManagerContact function and the addCoworkers function together
 function addShiftInfo (shift) {
   return new Promise((resolve, reject) => {
     addManagerContact(shift)
@@ -176,6 +196,8 @@ function addShiftInfo (shift) {
   })
 }
 
+// addManagerContact returns a the shiftObject with either the
+// manager's email or phone number appended to it
 function addManagerContact (shift) {
   return new Promise((resolve, reject) => {
     repo.getByID(shift.manager_id, 'users').then(managerObject => {
@@ -192,6 +214,8 @@ function addManagerContact (shift) {
   })
 }
 
+// getMyShifts returns a list of shifts correlated with the userID passed in
+// the list also contains shifts that have not been assigned to anyone yet.
 function getMyShifts (shifts, userID) {
   return new Promise((resolve, reject) => {
     var shiftList = []
@@ -212,6 +236,7 @@ function getMyShifts (shifts, userID) {
   })
 }
 
+// calculateHours adds up the amount of hours that have been worked in the last 7 days
 function calculateHours (userShifts) {
   return new Promise((resolve, reject) => {
     var totalHours = 0

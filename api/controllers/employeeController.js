@@ -1,11 +1,16 @@
 'use strict'
 
+// This entire file holds all controller functions that correlate
+// directly with employee related endpoints
+
 var repo = require('./../repos/repo.js')
 var helper = require('./../helpers/helper.js')
 var moment = require('moment')
 
+// Required RFC2822 date format
 var RFC2822 = 'ddd, DD MMM YYYY HH:mm:ss ZZ'
 
+// getEmployeeByID returns specific user data object from database by ID
 function getEmployeeByID (req, res, next) {
   var empID = req.swagger.params.emp_id.value
   repo.getByID(empID, 'users')
@@ -16,6 +21,7 @@ function getEmployeeByID (req, res, next) {
     })
 }
 
+// getAllEmployees returns full list of all user data objects from database
 function getAllEmployees (req, res, next) {
   repo.getCollection('users')
     .then(result => {
@@ -25,6 +31,8 @@ function getAllEmployees (req, res, next) {
     })
 }
 
+// createEmployee runs an insert within the database to create a new user object entry
+// only managers have access, a valid role is required and contact info is validated
 function createEmployee (req, res, next) {
   var userID = req.swagger.params.user_id.value
   var userObject = req.swagger.params.body.value
@@ -44,6 +52,8 @@ function createEmployee (req, res, next) {
   })
 }
 
+// deleteEmployeeByID removes a user object from the db by specifiying ID
+// only managers have access
 function deleteEmployeeByID (req, res, next) {
   var empID = req.swagger.params.emp_id.value
   var userID = req.swagger.params.user_id.value
@@ -57,6 +67,8 @@ function deleteEmployeeByID (req, res, next) {
   })
 }
 
+// updateEmployeeByID updates a user object in the db using specified ID and request body data
+// only managers have access, and role values are validated
 function updateEmployeeByID (req, res, next) {
   var empID = req.swagger.params.emp_id.value
   var userID = req.swagger.params.user_id.value
